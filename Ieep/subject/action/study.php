@@ -1,0 +1,105 @@
+<?php
+session_start();
+
+$sub = array(
+    '101'=> 'Programming in “C”',
+    '102'=> 'Office Automation Tools',
+    '103'=> 'Computer Organization',
+    '104'=> 'Fundamental Mathematics for Computer Science',
+    '105'=> 'Communication Skills-I',
+    '201'=> 'Database Management System- I',
+    '202'=> 'Object Oriented Programming using C++',
+    '203'=> 'System Analysis & Design',
+    '204'=> 'Computer Oriented Numerical & Statistical Methods',
+    '205'=> 'Communication Skills-II',
+    '301'=> 'OS & Data structure',
+    '302'=> 'Database Management System- I',
+    '303'=> 'GUI Programming Using .NET platform',
+    '304'=> 'Processor Architecture & Utility',
+    '305'=> 'Software Project Management',
+    '401'=> 'OS internals & Programming',
+    '402'=> 'Web Technologies–I (HTML, PHP)',
+    '403'=> 'Multimedia Systems',
+    '404'=> 'Client/Server Applications',
+    '405'=> 'Computer Networks–I',
+    '501'=> 'Internet Programming using JAVA',
+    '502'=> 'Web Technologies – II (Asp.NET)',
+    '503'=> 'EmergRecommendedgies & tools – I',
+    '504'=> 'Computer Networks-II',
+    '601'=> 'Emerging Technologies & tools – II',
+);
+?>
+
+<?php
+if (isset($_SESSION['id'])) {
+    printf("
+<html>
+<head>
+    <meta charset=\"utf-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intranet e-Evaluation Portal</title>
+    <link rel=\"icon\" href=\"../icon.png\">
+    <!--<script type=\"text/javascript\" src=\"jquery-1.8.2.js\"></script>-->
+    <script type=\"text/javascript\" src=\"../../jquery-1.11.3.js\"></script>
+    <script type=\"text/javascript\" src=\"../../jquery-ui.min.js\"></script>
+    <link rel=\"stylesheet\" href=\"../../jquery-ui.css\" type=\"text/css\" media=\"all\">
+    <link rel=\"stylesheet\" href=\"../../css/bootstrap.css\">
+    <script src=\"../../js/bootstrap.js\"></script>
+    <link rel=\"stylesheet\" href=\"../../ctm.css\">
+    <link rel=\"stylesheet\" href=\"../../student/1.css\">
+</head>
+<body>
+<a  href=\"../../index.php\">
+<img src = \"../../icon.png\" style=\"width:130px; height: 125px;\">
+</a> 
+<div class=\"customDiv\" style=\"height: 115px; margin-inside:10px; float: right; min-width:250px;\">
+<h2 style=\"color:dodgerblue; font-family:\'Apple Symbols\'; \">%s</h2>
+<form action=\"../../student/logout.php\" method=\"get\">
+<button class=\"btn btn-danger\" type=\"submit\" name=\"submit\" style=\"float: left; margin-left: 20px; margin-top:4px;\">Log-Out</button>
+</form>
+<button class =\"btn btn-success\" onclick=\"window.location.href= \'profile.php\'\">My profile</button>
+</div>
+<br> 
+<h1 id = \"logoText\" style=\"width:1000px auto;\">%s</h1>
+<div class=\"container\">
+
+
+    
+", htmlspecialchars($_SESSION['studentName']), htmlspecialchars($sub [$_SESSION['sub']]));
+}
+echo "<div class=\"row\">
+        <div class=\"col-md-1\">
+        </div>
+        <div class=\"col-md-10\">
+        <div class = 'customDiv' style='height:640px; overflow: auto;overflow-x:hidden;'>
+       <div class='container'>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <div class='row'>
+       
+       <div class='col-md-4' style='margin-left: 60px;'>
+       <div class='subjectdiv' >
+        <a href='../action/study.php'>
+       <img src='../eb.png'  style='height: 210px;width: 210px;'>
+       <h2 class='subjectTitle'>Recommended  Readings</h2>
+       </a>
+</div>
+</div>
+ <div class='col-md-4' style='margin-left: 60px;'>
+       <div class='col-md-4' style='margin-left: 60px;'>
+      <div class='subjectdiv' >
+        <a href='../vl.png'>
+       <img src='../vl.png'  style='height: 194px;width: 200px; '>
+       <h2 class='subjectTitle'>Recommended video Lectures</h2>
+       </a>
+</div>
+</div>
+</div>
+</div>";

@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intranet e-Evaluation Portal</title>
+    <link rel="icon" href="icon.png">
+    <script type="text/javascript" src="jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jquery-ui.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="ctm.css">
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+<?php
+/**
+ * Created by chirag chatwani
+ * Date: 21/08/17
+ * Time: 9:31 PM
+ */
+if (isset ($_POST['submit'])&& $_SERVER["REQUEST_METHOD"] == "POST")
+{
+    include_once "db.inc.php";
+    include_once "signup.vars.db.php";
+
+    $vsql = "SELECT * FROM student_information WHERE emailId = '$_emailId' ";
+    $result = mysqli_query($conn, $vsql);
+    $result_check = mysqli_num_rows($result);
+    if ($result_check > 0)
+    {
+
+    }
+    else {
+
+    }
+
+
+
+
+}
+else
+{
+ header("Location:");
+ exit ();
+}
+
+ ?>
+</body>
+</html>
+

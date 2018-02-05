@@ -1,0 +1,126 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intranet e-Evaluation Portal</title>
+    <link rel="icon" href="icon.png">
+    <script type="text/javascript" src="jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jquery-ui.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="ctm.css">
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+<?php
+/**
+ * Created by chirag chatwani
+ * Date: 21/08/17
+ * Time: 9:31 PM
+ */
+if (isset ($_POST['submit'])&& $_SERVER["REQUEST_METHOD"] == "POST")
+{
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = 'Ieep';
+
+$conn = $conn =  mysqli_connect($servername,$username,$password,$dbname);
+
+
+
+$studentName = $_POST['studentName'];
+$_studentName = mysqli_real_escape_string($conn,$studentName);
+
+$dateOfBirth = $_POST ['dateOfBirth'];
+$_dateOfBirth = mysqli_real_escape_string($conn,$dateOfBirth);
+
+
+$enrollmentNumber = $_POST ['enrollmentNumber'];
+$_enrollmentNumber = mysqli_real_escape_string($conn,$enrollmentNumber);
+
+$rollNumber = $_POST ['rollNumber'];
+$_rollNumber = mysqli_real_escape_string ($conn,$rollNumber);
+
+$sem =  substr($_POST['class'],3,1);
+$_sem = mysqli_real_escape_string($conn,$sem);
+
+$divison = substr($_POST['class'],-1,1);
+$_divison = mysqli_real_escape_string($conn,$divison);
+
+$adLine1 = $_POST['adLine1'];
+$_adLine1= mysqli_real_escape_string($conn,$adLine1);
+
+$adLine2 = $_POST['adLine2'];
+$_adLine2= mysqli_real_escape_string($conn,$adLine2);
+
+$adLine3 = $_POST['adLine3'];
+$_adLine3= mysqli_real_escape_string($conn,$adLine3);
+
+$country = $_POST['country'];
+$_country = mysqli_real_escape_string($conn,$country);
+
+$state = $_POST['state'];
+$_state= mysqli_real_escape_string($conn,$state);
+
+$city = $_POST['city'];
+$_city= mysqli_real_escape_string($conn,$city);
+
+$pincode = $_POST['pinCode'];
+$_pinCode= mysqli_real_escape_string($conn,$pincode);
+
+$emailId = $_POST['emailId'];
+$_emailId= mysqli_real_escape_string($conn,$emailId);
+
+$emailId_parent = $_POST['emailId_parent'];
+$_emailId_parent= mysqli_real_escape_string($conn,$emailId_parent);
+
+$phoneNumber = $_POST['phoneNumber'];
+$_phoneNumber= mysqli_real_escape_string($conn,$phoneNumber);
+
+$phoneNumber_parent = $_POST['phoneNumber_parent'];
+$_phoneNumber_parent= mysqli_real_escape_string($conn,$phoneNumber_parent);
+
+$pass = $_POST['pass'];
+$_pass = mysqli_real_escape_string($conn,$pass);
+
+//$adc = get_defined_vars();
+//print_r ($adc);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "INSERT INTO student_information  VALUES (NULL,'$_studentName', '$_dateOfBirth', '$_enrollmentNumber', '$_rollNumber', '$_sem', '$_divison', '$_adLine1', '$adLine2', '$_adLine3', '$_country', '$_state', '$_city', '$_pinCode', '$_emailId', '$_emailId_parent', '$_phoneNumber', '$_phoneNumber_parent', '$_pass')";
+if ($conn->query($sql) === TRUE) {
+    printf ("<div class=\"alert alert-success\">
+  <strong>Success! Your New Account on our System  has id %d.\n </strong> </div>", mysqli_insert_id($conn));
+}
+else if (mysqli_errno($conn)== 1062)
+{
+    echo "<div class=\"alert alert-danger\" style='width: 50%; text-align: center;margin-left: 25%'>
+  <strong>Email-ID or Phone Number</strong> You are Trying to use is has Already has been Registered for An Account So Please Try to Login with  that Information Or Try to use diffrent Email or phone Number";
+}
+else
+{
+
+    echo "Something went Wrong Please Try Again Later";
+}
+
+$conn->close();
+?>
+}
+else
+{
+    echo "<div class=\"alert alert-danger\" style='width: 50%; text-align: center;margin-left: 25%'> <strong> Access Forbidden </strong>";
+}
+
+ ?>
+</body>
+</html>
+

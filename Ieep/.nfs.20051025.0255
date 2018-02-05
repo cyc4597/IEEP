@@ -1,0 +1,360 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intranet e-Evaluation Portal</title>
+    <link rel="icon" href="icon.png">
+    <!--<script type="text/javascript" src="jquery-1.8.2.js"></script>-->
+    <script type="text/javascript" src="jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jquery-ui.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="sty.css">
+</head>
+<body onload="errorStateCheck()">
+<div class = "logo">
+    <a href="index.php">
+        <img src="icon.png" height="145px" style="margin-top:8px;" >
+    </a>
+</div>
+<div class="container">
+    <h1 id = "logoText">Intranet e-Evaluation Portal</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="customDiv" style="height: 270px; margin-top: 30px;">
+<form name="studentLogin" method = "post" action = "lgin.php" onsubmit = "return student_login_validate()">
+                    <h1 class="formHeading">Student</h1>
+
+                    <div class="input-group" style = "padding:4px;" id="std_LoginId">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i> </span>
+                        <input class="form-control" type="email" name = "studentId" placeholder="Email-Id" id ="stdLoginId">
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id="std_LoginPass">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> </span>
+                        <input class="form-control" type="password" placeholder="Password" name="pass" id="stdLoginPass">
+                    </div>
+                    <br>
+
+                    <button type="submit" class="btn btn-warning" id = "logInSubmit" name = "submit">Let me in >> </button>
+                </form>
+
+            </div>
+            <script>
+                function student_login_validate()
+                {
+                    var studentId = document.forms['studentLogin']['studentId'].value;
+                    var pass = document.forms['studentLogin']['pass'].value;
+                    if (studentId === "" || pass === "")
+                    {
+                        document.getElementById("std_LoginId").classList.add("has-error", "has-feedback");
+                        document.getElementById("std_LoginPass").classList.add("has-error", "has-feedback");
+                        document.getElementById("stdLoginId").value = "";
+                        document.getElementById("stdLoginPass").value = "";
+                        document.getElementById("stdLoginId").placeholder = "Email and Password's Are mandotory";
+                        document.getElementById("stdLoginId").focus();
+                        document.getElementById("stdLoginPass").placeholder = "Email and Password's Are mandotory";
+                        return false
+               }
+                }
+            </script>
+            <br>
+            <br>
+            <div class="customDiv" style="height: 270px;">
+                <form action="pLogin.php" method="post" >
+
+                    <!--
+
+                    Log-in form for professor
+
+                    empId
+                    Ppass
+
+
+                    submit to :-  xx
+                    -->
+                    <h1 class="formHeading">Professor</h1>
+
+                    <div class="input-group" style = "padding:4px;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i> </span>
+                        <input class="form-control" type="text" name = "empId" placeholder="Employee Id">
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> </span>
+                        <input class="form-control" type="password" placeholder="Password" name="Ppass">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-warning" id = "logInSubmit" name = "submit">Let me in >> </button>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <br>
+            <br>
+        </div>
+        <br>
+        <div class="col-md-7" >
+            <br>
+            <div class="customDiv" style="height:580px; overflow: auto;   margin-left:00px">
+                <form class="form-horizontal"  method="post" action="supStd.php" name="signupForm" compulsory" onsubmit="validate()">
+                    <h1 class="formHeading">Student Sign-up</h1>
+
+                    <div class="input-group" style = "padding:4px;" id = "studentName">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i> </span>
+                        <input class="form-control " type="text" name = "studentName" placeholder="Full Name (As mentioned in MarkSheet)" >
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id ="_dateOfBirth">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i> </span>
+                        <input class="form-control" type="text" name = "dateOfBirth" id = "dateOfBirth" placeholder="Date of birth"pattern="^([a-zA-Z0-9)$"  maxlength="20">
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#dateOfBirth') .datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                                showButtonPanel: true,
+                                yearRange: "-40:-12",
+                                firstDay: 1,
+                                constrainInput: true,
+                                dateFormat: 'yy/mm/dd'
+
+                            });
+                        });
+                    </script>
+                    <br>
+
+                    <div class="input-group" style = "padding:4px;" id = "rollNumber">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i> </span>
+                        <input class="form-control" type="text" name = "rollNumber" placeholder="Roll Number "  onkeypress="return IsNumeric(event);" onpaste="return false;" ondrop = "return false;">
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id = "class">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i> </span>
+                        <Select class="form-control"  name = "class" >
+                            <option>Your current Class..........</option>
+                            <option>Sem1-A</option>
+                            <option>Sem1-B</option>
+                            <option>Sem1-C</option>
+                            <option>Sem1-D</option>
+                            <option>Sem1-E</option>
+                            <option>Sem2-A</option>
+                            <option>Sem2-B</option>
+                            <option>Sem2-C</option>
+                            <option>Sem2-D</option>
+                            <option>Sem2-E</option>
+                            <option>Sem3-A</option>
+                            <option>Sem3-B</option>
+                            <option>Sem3-C</option>
+                            <option>Sem3-D</option>
+                            <option>Sem3-E</option>
+                            <option>Sem4-A</option>
+                            <option>Sem4-B</option>
+                            <option>Sem4-C</option>
+                            <option>Sem4-D</option>
+                            <option>Sem4-E</option>
+                            <option>Sem5-A</option>
+                            <option>Sem5-B</option>
+                            <option>Sem5-C</option>
+                            <option>Sem5-D</option>
+                            <option>Sem5-E</option>
+                            <option>Sem6-A</option>
+                            <option>Sem6-B</option>
+                            <option>Sem6-C</option>
+                            <option>Sem6-D</option>
+                            <option>Sem6-E</option>
+                            <option>You have Not selected your class.Please Select your class to proceed.</option>
+
+                        </Select>
+                    </div>
+                   
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id = "emailId">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i> </span>
+                        <input class="form-control" type="email" name = "emailId" placeholder="E-mail Id (personal)" >
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id="phoneNumber">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i> </span>
+                        <input class="form-control" type="tel" name = "phoneNumber" placeholder="Mobile-Number (personal)"  onkeypress="return IsNumeric(event);" onpaste="return false;" ondrop = "return false;" >
+                    </div>
+                    <br>
+
+
+                    <div class="input-group" style = "padding:4px;" id = "pass">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> </span>
+                        <input class="form-control" type="password" placeholder="Password" name="pass" id="password_field">
+                    </div>
+                    <br>
+                    <div class="input-group" style = "padding:4px;" id="Cpass">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> </span>
+                        <input class="form-control" type="password" placeholder="Confirm Password" name="Cpass" id="confirm_password_field" >
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-warning" id = "logInSubmit" name="submit">
+                    <br>
+                </form>
+                <script>
+
+
+                    function validate ()
+                    {
+                        var current_link = window.location.href;
+                        var error_state = current_link.split('?')[1];
+                        var studentName = document.forms['signupForm']['studentName'].value;
+                        if (studentName  === "")
+                        {
+                            document.getElementById("studentName").classList.add("has-error","has-feedback");
+                            document.getElementsByName('studentName')[0].placeholder= "You must fill your name according to the marksheet";
+                            document.getElementsByName("studentName")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("studentName").classList.remove("has-error","has-feedback");
+                            document.getElementById("studentName").classList.add("has-success","has-feedback");
+                        }
+                        var dateOfBirth = document.forms['signupForm']['dateOfBirth'].value;
+                        if (dateOfBirth  === "")
+                        {
+                            document.getElementById("_dateOfBirth").classList.add("has-error","has-feedback");
+                            document.getElementsByName('dateOfBirth')[0].placeholder='Your must mention your date of birth';
+                            document.getElementsByName("dateOfBirth")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("_dateOfBirth").classList.remove("has-error","has-feedback");
+                            document.getElementById("_dateOfBirth").classList.add("has-success","has-feedback");
+                        }
+                        var enrollmentNumber  = document.forms['signupForm']['enrollmentNumber'].value;
+                        if (enrollmentNumber  === "")
+                        {
+                            document.getElementById("enrollmentNumber").classList.add("has-error","has-feedback");
+                            document.getElementsByName('enrollmentNumber')[0].placeholder='Your enrollment-number must be mentioned';
+                            document.getElementsByName("enrollmentNumber")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("enrollmentNumber").classList.remove("has-error","has-feedback");
+                            document.getElementById("enrollmentNumber").classList.add("has-success","has-feedback");
+                        }
+                        var rollNumber  = document.forms['signupForm']['rollNumber'].value;
+                        if (rollNumber  === "")
+                        {
+                            document.getElementById("rollNumber").classList.add("has-error","has-feedback");
+                            document.getElementsByName('rollNumber')[0].placeholder='Your Roll-number must be mentioned';
+                            document.getElementsByName("rollNumber")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("rollNumber").classList.remove("has-error","has-feedback");
+                            document.getElementById("rollNumber").classList.add("has-success","has-feedback");
+                        }
+                        var Class  = document.forms['signupForm']['class'].value;
+                        if (Class === "Your current Class.........." || Class === "You have Not selected your class.Please Select your class to proceed.")
+                        {
+                            document.getElementsByName("class")[0].value="You have Not selected your class.Please Select your class to proceed.";
+                            document.getElementById("class").classList.add("has-error","has-feedback");
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("class").classList.remove("has-error","has-feedback");
+                            document.getElementById("class").classList.add("has-success","has-feedback");
+
+                        }
+                        var emailId  = document.forms['signupForm']['emailId'].value;
+                        if (emailId  === "")
+                        {
+                            document.getElementById("emailId").classList.add("has-error","has-feedback");
+                            document.getElementsByName('emailId')[0].placeholder='Enter your emailId its mandatory';
+                            document.getElementsByName("emailId")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("emailId").classList.remove("has-error","has-feedback");
+                            document.getElementById("emailId").classList.add("has-success","has-feedback");
+                        }
+
+                        var phoneNumber = document.forms['signupForm']['phoneNumber'].value;
+                        if (phoneNumber  === "")
+                        {
+                            document.getElementById("phoneNumber").classList.add("has-error","has-feedback");
+                            document.getElementsByName('phoneNumber')[0].placeholder='Enter your phoneNumber its mandatory';
+                            document.getElementsByName("phoneNumber")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("phoneNumber").classList.remove("has-error","has-feedback");
+                            document.getElementById("phoneNumber").classList.add("has-success","has-feedback");
+                        }
+                        var emailId_parent  = document.forms['signupForm']['emailId_parent'].value;
+                        if (emailId_parent  === "")
+                        {
+                            document.getElementById("emailId_parent").classList.add("has-error","has-feedback");
+                            document.getElementsByName('emailId_parent')[0].placeholder='Enter emailId of your parents or guardian its mandatory';
+                            document.getElementsByName("emailId_parent")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("emailId_parent").classList.remove("has-error","has-feedback");
+                            document.getElementById("emailId_parent").classList.add("has-success","has-feedback");
+                        }
+                        var phoneNumber_parent  = document.forms['signupForm']['phoneNumber_parent'].value;
+                        if (phoneNumber_parent  === "")
+                        {
+                            document.getElementById("phoneNumber_parent").classList.add("has-error","has-feedback");
+                            document.getElementsByName('phoneNumber_parent')[0].placeholder='Enter phoneNumber of parent its mandatory';
+                            document.getElementsByName("phoneNumber_parent")[0].focus();
+                            return false;
+                        }
+                        else
+                        {
+                            document.getElementById("phoneNumber_parent").classList.remove("has-error","has-feedback");
+                            document.getElementById("phoneNumber_parent").classList.add("has-success","has-feedback");
+                        }
+                        var pass = document.forms['signupForm']['pass'].value;
+                        var Cpass = document.forms['signupForm']['Cpass'].value;
+                        var check_pass_length = pass.concat(Cpass);
+                        if (((pass === "" || Cpass === "")||(pass !== Cpass)) || check_pass_length.length < 12 ) {
+                            document.getElementById("pass").classList.add("has-error", "has-feedback");
+                            document.getElementById("Cpass").classList.add("has-error", "has-feedback");
+                            document.getElementById("password_field").value = "";
+                            document.getElementById("confirm_password_field").value = "";
+                            document.getElementById("password_field").placeholder = "Passwords must be 0f atleast 6 char and be matched and filled";
+                            document.getElementById("password_field").focus();
+                            document.getElementById("confirm_password_field").placeholder = "Passwords must be 0f atleast 6 char and be matched and filled";
+                            return false;
+                        }
+                    }
+                </script>
+                <script type="text/javascript">
+                    var specialKeys = new Array();
+                    specialKeys.push(8); //Backspace
+                    function IsNumeric(e) {
+                        var keyCode = e.which ? e.which : e.keyCode
+                        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                        return ret;
+                    }
+                </script>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
